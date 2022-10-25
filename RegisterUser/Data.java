@@ -27,7 +27,9 @@ public class Data {
     public static void check(
             String login,
             String password,
-            String confirmPassword) throws WrongLoginException, WrongPasswordException{
+            String confirmPassword
+    ) throws WrongLoginException, WrongPasswordException{
+
         if (!validate(login)) {
             throw new WrongLoginException("Логин содержит недопустимые символы");
         }
@@ -39,15 +41,7 @@ public class Data {
         }
     }
 
-    private static boolean validate (String s) {
-        if (s.length() > 20) {
-            return false;
-        }
-        for (int i = 0; i < s.length(); i++) {
-            if (!VALID_CHARACTERS.contains(String.valueOf(s.charAt(i)))) {
-                return false;
-            }
-        }
-        return true;
+    private static boolean validate (String data) {
+        return data.matches("^[a-zA-Z0-9_]+$") && (data.length() > 0 && data.length() < 20);
     }
 }
