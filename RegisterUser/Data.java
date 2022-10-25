@@ -1,12 +1,6 @@
 package RegisterUser;
 
-import RegisterUser.WrongLoginException;
-import RegisterUser.WrongPasswordException;
-
 public class Data {
-
-    private static final String VALID_CHARACTERS ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_";
-
     private Data() {
     }
 
@@ -30,10 +24,10 @@ public class Data {
             String confirmPassword
     ) throws WrongLoginException, WrongPasswordException{
 
-        if (!validate(login)) {
+        if (validate(login)) {
             throw new WrongLoginException("Логин содержит недопустимые символы");
         }
-        if (!validate(password)) {
+        if (validate(password)) {
             throw new WrongPasswordException("Пароль содержит недопустимые символы");
         }
         if (!password.equals(confirmPassword)) {
@@ -42,6 +36,6 @@ public class Data {
     }
 
     private static boolean validate (String data) {
-        return data.matches("^[a-zA-Z0-9_]+$") && (data.length() > 0 && data.length() < 20);
+        return !data.matches("^[a-zA-Z0-9_]+$") || (data.length() <= 0 || data.length() >= 20);
     }
 }
